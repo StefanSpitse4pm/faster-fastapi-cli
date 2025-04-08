@@ -1,0 +1,9 @@
+setup.py
+fasterfastapi/__init__.py
+fasterfastapi/cli.py
+fasterfastapi.egg-info/PKG-INFO
+fasterfastapi.egg-info/SOURCES.txt
+fasterfastapi.egg-info/dependency_links.txt
+fasterfastapi.egg-info/entry_points.txt
+fasterfastapi.egg-info/requires.txt
+fasterfastapi.egg-info/top_level.txt
