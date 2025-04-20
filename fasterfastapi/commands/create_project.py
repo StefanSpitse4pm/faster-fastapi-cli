@@ -3,7 +3,7 @@ import os
 import json
 from pathlib import Path
 from fasterfastapi import utils
-from fasterfastapi.data.templater import get_template
+from fasterfastapi.utils.template_generation import get_
 
 @click.command()
 @click.argument("project_name")
@@ -24,6 +24,7 @@ def create_project(project_name):
 
    items = {
       "name": project_name,
+      "routes": []
    }
 
    create_structure(path, structure, items)

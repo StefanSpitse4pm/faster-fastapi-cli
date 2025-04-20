@@ -4,4 +4,6 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-{{% for route in item.route %}}
+{% for route in items.routes %}
+app.include_router({{ route }})
+{% endfor %}

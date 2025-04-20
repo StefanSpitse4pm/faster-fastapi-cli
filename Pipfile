@@ -9,6 +9,7 @@ colorama = "*"
 click = "*"
 setuptools = "*"
 jinja2 = "*"
+fasterfastapi = {file = "."}
 
 [dev-packages]
 
