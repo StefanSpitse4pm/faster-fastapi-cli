@@ -1,5 +1,5 @@
 import click
-from fasterfastapi.commands.generator import create_project
+from fasterfastapi.commands.create_project import create_project
 
 @click.group()
 def cli():
