@@ -1,8 +1,10 @@
+import sys
+
 import click
 import os
 import json
 from pathlib import Path
-from fasterfastapi import utils
+from fasterfastapi.utils.structure import does_project_data_exist
 from fasterfastapi.utils.template_generation import get_template
 from appdirs import user_data_dir
 
@@ -10,8 +12,12 @@ from appdirs import user_data_dir
 @click.command()
 @click.argument("project_name")
 def create_project(project_name):
+   if does_project_data_exist(project_name):
+      click.echo("Project already exists")
+      return
+
    path = os.getcwd()
-   click.echo(f"Creating project at {path}")
+
    data_dir = user_data_dir(project_name)
    structure = {project_name: {
       "src": {
