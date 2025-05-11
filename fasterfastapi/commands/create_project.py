@@ -3,14 +3,16 @@ import os
 import json
 from pathlib import Path
 from fasterfastapi import utils
-from fasterfastapi.utils.template_generation import get_
+from fasterfastapi.utils.template_generation import get_template
+from appdirs import user_data_dir
+
 
 @click.command()
 @click.argument("project_name")
 def create_project(project_name):
    path = os.getcwd()
    click.echo(f"Creating project at {path}")
-
+   data_dir = user_data_dir(project_name)
    structure = {project_name: {
       "src": {
          "main.py":'main.py.jinja',
@@ -28,9 +30,9 @@ def create_project(project_name):
    }
 
    create_structure(path, structure, items)
-   root_dir = Path(__file__).parent
-   print(root_dir)
-   with open(f"{root_dir}/structure.json", "w") as file:
+   os.makedirs(data_dir, exist_ok=True)
+   root_dir = os.path.join(data_dir, "structure.json")
+   with open(root_dir, "w") as file:
       json.dump(structure, file)
 
 def create_structure(parent_path, structure, items):
