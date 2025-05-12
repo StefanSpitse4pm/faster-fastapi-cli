@@ -11,13 +11,18 @@ from appdirs import user_data_dir
 
 @click.command()
 @click.argument("project_name")
-def create_project(project_name):
+@click.pass_context
+def create_project(ctx, project_name):
+   state = ctx.obj
+
    if does_project_data_exist(project_name):
       click.echo("Project already exists")
       return
 
    path = os.getcwd()
 
+
+   click.echo(f"Creating project at {path}")
    data_dir = user_data_dir(project_name)
    structure = {project_name: {
       "src": {
@@ -40,6 +45,7 @@ def create_project(project_name):
    root_dir = os.path.join(data_dir, "structure.json")
    with open(root_dir, "w") as file:
       json.dump(structure, file)
+   state.created_project = True
 
 def create_structure(parent_path, structure, items):
    for name, value in structure.items():
