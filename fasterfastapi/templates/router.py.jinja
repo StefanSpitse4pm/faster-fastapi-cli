@@ -1,0 +1,32 @@
+from fastapi import APIRouter
+from starlette.responses import Response
+
+router = APIRouter()
+
+{%- if items._get %}
+@router.get("/{{ items.name }}")
+async def get_{{ items.name }}(response: Response):
+    pass
+{% endif %}
+
+{%- if items.post %}
+@router.post("/{{ items.name }}")
+async def post_{{ items.name }}():
+    pass
+{% endif %}
+
+{%- if items.delete %}
+@router.delete("/{{ items.name }}")
+async def delete_{{ items.name }}():
+    pass
+{% endif %}
+
+{%- if items.put %}
+@router.put("/{{ items.name }}")
+async def update_{{ items.name }}():
+    pass
+{% endif %}
+
+
+
+
