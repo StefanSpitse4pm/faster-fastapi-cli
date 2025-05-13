@@ -1,7 +1,7 @@
 import os
 
 import click
-from fasterfastapi.utils.config import load_config
+from fasterfastapi.utils.config import load_config, save_config
 from fasterfastapi.utils.template_generation import create_structure
 
 @click.command()
@@ -21,17 +21,23 @@ def create_endpoint(endpoint_name, get, post, delete, put, crud):
 
     project_name = next(iter(config))
 
-    path = f"{os.getcwd()}/{project_name}/{endpoint_name}"
-    structure = {project_name: {
+    path = f"{os.getcwd()}/{project_name}/src/{endpoint_name}"
+    structure = {endpoint_name: {
         'router.py':'router.py.jinja',
+        'models.py':'',
+        'dependecies.py':'',
+        'service.py':'',
+
     }}
     items = {"name":endpoint_name, "_get": get, "post": post, "delete": delete, "put": put}
-    print(items)
+
+    config.update(structure)
+
     try:
         os.mkdir(path)
     except FileExistsError:
         click.echo(f"endpoint {endpoint_name} already exists!")
         return
 
-    create_structure(path, structure[project_name], items)
-
+    create_structure(path, structure[endpoint_name], items)
+    save_config(config)
