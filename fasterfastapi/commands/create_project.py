@@ -7,19 +7,22 @@ from fasterfastapi.utils.config import load_config, save_config
 @click.argument("project_name")
 def create_project(project_name):
    path = os.getcwd()
-   if load_config() !=  {}:
-      click.echo("Project already created")
-      return
+   try:
+      if load_config()[project_name]:
+         click.echo("Project already created")
+         return
+   except KeyError:
+      pass
 
    click.echo(f"Creating project at {path}")
    structure = {project_name: {
       "src": {
          "main.py":'main.py.jinja',
-         "config.py":'',
-         "logging.py": '',
-         "rate_limiting.py":'',
+         "config.py":'config.py.jinja',
+         "logging.py": 'logger.py.jinja',
+         "middleware.py":'middleware.py.jinja',
       },
-      "requirements.txt":'',
+      "requirements.txt":'requirements.txt.jinja',
       }
    }
 

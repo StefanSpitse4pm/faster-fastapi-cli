@@ -30,13 +30,20 @@ def create_endpoint(endpoint_name, get, post, delete, put, crud):
 
     }}
     items = {"name":endpoint_name, "_get": get, "post": post, "delete": delete, "put": put}
-
     config.update(structure)
+
+    with open(f"{project_name}/src/main.py", "r+") as file:
+        original = file.read()
+        file.seek(0)
+        file.write(f"from .{endpoint_name}.router import router as {endpoint_name}_route\n{original}")
+
+    with open(f"{project_name}/src/main.py", "a") as file:
+        file.write(f"app.include_router({endpoint_name}_route)\n  ")
 
     try:
         os.mkdir(path)
     except FileExistsError:
-        click.echo(f"endpoint {endpoint_name} already exists!")
+        click.echo(f"endpoint {endpoint_name}_ already exists!")
         return
 
     create_structure(path, structure[endpoint_name], items)
