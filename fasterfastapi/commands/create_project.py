@@ -18,7 +18,6 @@ def create_project(project_name):
    structure = {project_name: {
       "src": {
          "main.py":'main.py.jinja',
-         "config.py":'config.py.jinja',
          "logging.py": 'logger.py.jinja',
          "middleware.py":'middleware.py.jinja',
       },
