@@ -3,7 +3,6 @@ import os
 import click
 from fasterfastapi.utils.config import load_config, save_config
 from fasterfastapi.utils.template_generation import create_structure
-
 @click.command()
 @click.argument("endpoint_name")
 @click.option('--get', is_flag=True, help="Adds a template of a get endpoint")

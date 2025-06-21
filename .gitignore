@@ -1,4 +1,5 @@
-/faster_fastapi.egg-info/
+/fasterfastapi.egg-info/
 /testenv/
 /build/
 /.idea/
+/dist/
