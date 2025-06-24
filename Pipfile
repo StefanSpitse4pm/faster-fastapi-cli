@@ -10,6 +10,7 @@ click = "*"
 setuptools = "*"
 jinja2 = "*"
 fasterfastapi = {file = "."}
+redbaron = "*"
 
 [dev-packages]
 

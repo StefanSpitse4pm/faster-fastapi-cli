@@ -9,11 +9,13 @@ fasterfastapi.egg-info/entry_points.txt
 fasterfastapi.egg-info/requires.txt
 fasterfastapi.egg-info/top_level.txt
 fasterfastapi/commands/__init__.py
+fasterfastapi/commands/add_jwt_token.py
 fasterfastapi/commands/create_database.py
 fasterfastapi/commands/create_endpoint.py
 fasterfastapi/commands/create_project.py
 fasterfastapi/templates/__init__.py
 fasterfastapi/templates/config.py.jinja
+fasterfastapi/templates/dependencies.py.jinja
 fasterfastapi/templates/logger.py.jinja
 fasterfastapi/templates/main.py.jinja
 fasterfastapi/templates/middleware.py.jinja

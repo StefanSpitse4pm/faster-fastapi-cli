@@ -2,8 +2,8 @@ import os
 
 import click
 
-from build.lib.fasterfastapi.commands.create_project import create_structure
-from fasterfastapi.utils.config import load_config 
+from fasterfastapi.utils.config import load_config
+from fasterfastapi.utils.template_generation import create_structure, add_to_config 
 
 
 @click.command()
@@ -26,10 +26,7 @@ def add_database():
         "database.py": "mysqldatabase.py.jinja",
         "config.py": "config.py.jinja",
     }
-
-    items = {
-        "uri": uri,
-        "db_name": db_name,
-    }
-
-    create_structure(path, structure, items)
+    content = {"MYSQL_DATABASE_URI:": uri, "MYSQL_DATABASE_NAME": project_name} 
+    
+    create_structure(path, structure, {})
+    add_to_config(path + "/config.py", content, "Config") 
