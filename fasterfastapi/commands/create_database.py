@@ -20,13 +20,13 @@ def add_database():
 
     project_name = next(iter(config))
 
-    uri = f"mysql+asyncmy://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+    uri = f"'mysql+asyncmy://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'"
     path = f"{os.getcwd()}/{project_name}/src"
     structure = {
         "database.py": "mysqldatabase.py.jinja",
         "config.py": "config.py.jinja",
     }
-    content = {"MYSQL_DATABASE_URI:": uri, "MYSQL_DATABASE_NAME": project_name} 
+    content = {"MYSQL_DATABASE_URI": uri, "MYSQL_DATABASE_NAME": f"'{project_name}'"} 
     
     create_structure(path, structure, {})
     add_to_config(path + "/config.py", content, "Config") 

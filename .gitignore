@@ -1,5 +1,6 @@
 /fasterfastapi.egg-info/
 /testenv/
+__pycache__/
 /build/
 /.idea/
 /dist/

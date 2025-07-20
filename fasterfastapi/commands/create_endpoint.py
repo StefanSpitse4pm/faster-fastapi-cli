@@ -27,11 +27,17 @@ def create_endpoint(
     project_name = next(iter(config))
 
     path = f"{os.getcwd()}/{project_name}/src/{endpoint_name}"
+    
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        click.echo(f"endpoint {endpoint_name}_ already exists!")
+        return
     structure = {
         endpoint_name: {
             "router.py": "router.py.jinja",
             "models.py": "",
-            "dependecies.py": "dependecies.py.jinja", 
+            "dependecies.py": "dependencies.py.jinja", 
             "service.py": "",
         }
     }
@@ -48,25 +54,20 @@ def create_endpoint(
     all_imports = red.find_all("FromImportNode") 
 
     for import_node in all_imports:
-        if import_node.value.dumps() == f"from .{endpoint_name}.router import router as {endpoint_name}_route":
+        if import_node.value.dumps() == f"from {endpoint_name}.router import router as {endpoint_name}_route":
             print(import_node)
 
     with open(f"{project_name}/src/main.py", "r+") as file:
         original = file.read()
         file.seek(0)
         file.write(
-            f"from .{endpoint_name}.router import router as {endpoint_name}_route\n{original}"
+            f"from {endpoint_name}.router import router as {endpoint_name}_route\n{original}"
         )
 
 
     with open(f"{project_name}/src/main.py", "a") as file:
-        file.write(f"app.include_router({endpoint_name}_route)\n  ")
+        file.write(f"app.include_router({endpoint_name}_route)\n")
 
-    try:
-        os.mkdir(path)
-    except FileExistsError:
-        click.echo(f"endpoint {endpoint_name}_ already exists!")
-        return
 
     create_structure(path, structure[endpoint_name], items)
     save_config(config)

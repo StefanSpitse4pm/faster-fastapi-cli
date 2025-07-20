@@ -9,8 +9,8 @@ colorama = "*"
 click = "*"
 setuptools = "*"
 jinja2 = "*"
-fasterfastapi = {file = "."}
 redbaron = "*"
+fasterfastapi = {file = ".", editable = true}
 
 [dev-packages]
 

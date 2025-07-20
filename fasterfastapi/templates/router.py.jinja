@@ -5,7 +5,7 @@ router = APIRouter()
 
 {%- if items._get %}
 @router.get("/{{ items.name }}")
-async def get_{{ items.name }}(response: Response):
+async def get_{{ items.name }}():
     pass
 {% endif %}
 

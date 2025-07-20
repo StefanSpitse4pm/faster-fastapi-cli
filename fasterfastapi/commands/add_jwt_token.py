@@ -3,6 +3,7 @@ import os
 from fasterfastapi.commands import create_endpoint
 from fasterfastapi.utils.config import load_config
 from fasterfastapi.utils.template_generation import add_to_config 
+from fasterfastapi.utils.template_generation import create_structure
 
 @click.command()
 def add_jwt():
@@ -42,5 +43,13 @@ def add_jwt():
         )
 
     project_name = next(iter(config))
+    structure = {
+        "dependencies.py": "dependencies.py.jinja",
+    }
+    items = {"jwt": True, "access_token": True}
     path = f"{os.getcwd()}/{project_name}/src/config.py"
     add_to_config(path, dict(list(jwt_config.items())[:-1]), "Config")
+    create_structure(f"{os.getcwd()}/{project_name}/src", structure, items)
+    click.echo("JWT token support added successfully.")
+    if jwt_config["login_endpoint"]:
+        click.echo("You have to implement authentication endpoint yourself but jwt token creation and verification is added.")
